@@ -1,0 +1,104 @@
+@import url('https://fonts.googleapis.com/css2?family=Lemon&family=Lobster&family=Satisfy&display=swap');
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100vw;
+    height: 100vh;
+    background-image: url('../../assets/background.png');
+    background-size: cover;
+    overflow-x:hidden ;
+    background-repeat: no-repeat;
+}
+
+table {
+    margin: auto;
+    border-radius: 20px;
+    width: 700px;
+    height: 500px;
+}
+
+tr{
+    background-color: rgba(145, 83, 38, 0.4);
+}
+
+thead{
+    line-height: 2;
+}
+
+th {
+    font-size: 30px;
+    color: rgba(235, 153, 95, 0.8);
+    /* text-shadow:
+    -2px -2px 0 #000,
+    2px -2px 0 #000,
+    -2px 2px 0 #000,
+    2px 2px 0 #000; */
+    font-family: 'Lobster', cursive;
+    text-shadow: 0 0 5px #000, 0 0 5px #000;
+}
+
+td {
+    font-size: 20px;
+    text-align: center;
+    justify-content: center;
+    color: rgba(233, 191, 161, 0.8);
+    font-weight: bold;
+    letter-spacing: 1px;
+    /* text-shadow:
+    -2px -2px 0 #000,
+    2px -2px 0 #000,
+    -2px 2px 0 #000,
+    2px 2px 0 #000; */
+    text-shadow: 0 0 5px #000, 0 0 5px #000;
+    cursor: pointer;
+    
+}
+
+td:hover {
+    background-color: rgba(167, 122, 88, 0.4);
+   
+}
+
+h1 {
+    color: rgba(238, 142, 73, 0.8);
+     text-shadow:
+    -2px -2px 0 #000,
+    2px -2px 0 #000,
+    -2px 2px 0 #000,
+    2px 2px 0 #000; 
+    font-size: 70px;
+    /* ext-shadow: 0 0 5px #000, 0 0 5px #000; */
+    font-family: 'Lemon', cursive;
+}
+
+.container {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.modal{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    position: absolute;
+    width: 600px;
+    height: 400px;
+    background-color: rgba(255, 255, 255);
+    border-radius: 30px;
+}
+
+.oculto{
+    display: none !important;
+}
