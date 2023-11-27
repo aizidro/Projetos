@@ -2,6 +2,12 @@ var tbody = document.querySelector("tbody")
 var thead = document.querySelector("thead")
 var tdCount = thead.querySelectorAll("th").length
 const modal = document.querySelector ('.modal')
+const nomeComercio = document.querySelector("#nome")
+const endComercio = document.querySelector("#endereco")
+const tellComercio = document.querySelector("#telefone")
+const infoCategoria = document.querySelector("#categoria")
+const fechar = document.querySelector("#x")
+const rodape = document.querySelector(".rodape")
 
 fetch ("http://localhost:3000/lista")
 .then(info =>{
@@ -19,9 +25,6 @@ fetch ("http://localhost:3000/lista")
         <td>${categoria}</td>
         <td>${nota}</td>
         `
-        tr.addEventListener("click", () => {
-            console.log(id);
-        })
 
         tbody.appendChild(tr);
     }
@@ -29,11 +32,25 @@ fetch ("http://localhost:3000/lista")
 
 function detalhes(id){
     modal.classList.toggle("oculto")
-    fetch(`http://localhost:3000/listaInfo/${id}`)
+    fetch(`http://localhost:3000/restauranteInfo/${id}`)
     .then(info =>{
         return info.json();
     })
     .then((data) => {
-        console.log(data);
+        const {message} = data;
+        console.log(message);
+        nomeComercio.textContent = message[0].nome
+        endComercio.textContent = message[0].endereco
+        tellComercio.textContent = message[0].telefone
+        infoCategoria.textContent = message[0].categoria
+
+        rodape.innerHTML = `
+        <img src= "../../assets/update.png" alt="update" />
+        <img src= "../../assets/delete.png" alt="delete" />
+        `
     })
 }
+
+fechar.addEventListener("click", () =>{
+    modal.classList.toggle("oculto")
+})

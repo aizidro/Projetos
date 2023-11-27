@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Lemon&family=Lobster&family=Satisfy&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Marhey:wght@300&display=swap');
 * {
     margin: 0;
     padding: 0;
@@ -74,7 +75,7 @@ h1 {
     -2px 2px 0 #000,
     2px 2px 0 #000; 
     font-size: 70px;
-    /* ext-shadow: 0 0 5px #000, 0 0 5px #000; */
+    /* text-shadow: 0 0 5px #000, 0 0 5px #000; */
     font-family: 'Lemon', cursive;
 }
 
@@ -88,17 +89,67 @@ h1 {
 .modal{
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-around;
+    flex-direction: column;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
     position: absolute;
     width: 600px;
-    height: 400px;
-    background-color: rgba(255, 255, 255);
+    height: auto;
+    padding: 10px 0px;
+    background-color: rgba(202, 114, 0, 0.5);
     border-radius: 30px;
+    border: 3px solid #000;
 }
+
+.modal header{
+    width: 100%;
+    text-align: end;
+    margin-right: 40px;
+}
+
+    #nome{
+        font-family: 'Marhey', sans-serif;
+        font-size: 45px;
+        top:0px;
+        color: aliceblue;
+    }
+
+    p{
+        color: #fff;
+        font-size: 30px;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
 
 .oculto{
     display: none !important;
+}
+
+.modal div {
+    color: rgb(20, 20, 20,);
+    font-size: 28px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
+}
+
+#x{
+    color: #fff;
+    cursor: pointer;
+    font-weight: bold;
+    font-family: sans-serif;
+}
+
+.rodape{
+    display: flex;
+    margin-top: 20px;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    gap: 25px;
+
+}
+
+.rodape img {
+    width: 40px;
+    cursor: pointer;
 }

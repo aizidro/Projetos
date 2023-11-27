@@ -20,6 +20,7 @@ CREATE TABLE restaurante (
     nome VARCHAR(50) NOT NULL,
     categoriaId INT NOT NULL ,
     endereco VARCHAR(60) NOT NULL,
+    telefone varchar(15) NOT NULL,
     FOREIGN KEY (categoriaId) REFERENCES categoria(id)
 );
 
@@ -63,12 +64,12 @@ INSERT INTO categoria VALUES
 (default, "pizzaria");
 
 INSERT INTO restaurante VALUES 
-(default, "Vinici'os Restaurant",2, "Rua Pedreira, 00"),
-(default, "Sodiê Doces",1, "R. Egas Bueno, 528 - Centro, Jaguariúna"),
-(default, "Na Lenha Steak House",3, "Av. dos Ipês, 1690 - Estância das Flores, Jaguariúna"),
-(default, "Oggi Sorvetes Jaguariúna",4, "R. Flor da Porcelana, 41 - Pedro Pina, Jaguariúna "),
-(default, "Woody Burger",5, "R. Júlio Frank, 612 - Jardim Berlim, Jaguariúna"),
-(default, "Dede Pizzaria ",6, " R. Júlio Frank, 813 - Centro, Jaguariúna");
+(default, "Vinici'os Restaurant",2, "Rua Pedreira, 00", "19993897665"),
+(default, "Sodiê Doces",1, "R. Egas Bueno, 528 - Centro, Jaguariúna", "19776264678"),
+(default, "Na Lenha Steak House",3, "Av. dos Ipês, 1690 - Estância das Flores, Jaguariúna", "19223465786"),
+(default, "Oggi Sorvetes Jaguariúna",4, "R. Flor da Porcelana, 41 - Pedro Pina, Jaguariúna", "19547658765 "),
+(default, "Woody Burger",5, "R. Júlio Frank, 612 - Jardim Berlim, Jaguariúna", "19445336754"),
+(default, "Dede Pizzaria ",6, " R. Júlio Frank, 813 - Centro, Jaguariúna", "19776587689");
 
 INSERT INTO avaliacao VALUES
 (2, 1, "2023/04/13", 10,"Mamma mia"),
@@ -84,3 +85,10 @@ FROM restaurante r
 INNER JOIN categoria cat ON r.categoriaId = cat.id
 LEFT JOIN avaliacao a ON r.id = a.restauranteId
 GROUP BY r.id, cat.id;
+
+CREATE VIEW vw_categoria AS
+SELECT r.id, r.nome, r.endereco, r.telefone, c.nome AS categoria
+FROM restaurante r
+INNER JOIN categoria c
+WHERE r.id = 3
+AND r.categoriaId = c.id;
