@@ -32,7 +32,7 @@ const listar = (req, res) => {
 }
 
 const listarInfo = (req, res) => {
-    const {id} = req.params
+    const { id } = req.params
     let query = `SELECT * FROM restaurante where id = ${id}`
     con.query(query, (err, response) => {
         if (err == null) {
@@ -43,25 +43,35 @@ const listarInfo = (req, res) => {
     })
 }
 
-const create = (req, res)=>{
-    const {id, nome, categoriaId, endereco} = req.body
+const create = (req, res) => {
+    const { id, nome, categoriaId, endereco } = req.body
     let string = `INSERT INTO restaurante VALUE(default,'${nome}',${categoriaId},'${endereco}')`
-    con.query(string,(err, result)=>{
-        if(err == null)
+    con.query(string, (err, result) => {
+        if (err == null)
             res.status(201).end()
         else
             res.status(500).json(err).end()
     })
 }
 
-const createAvaliacao = (req, res)=>{
-    const {restauranteId, clienteId, data, nota, descricao} = req.body
+const createAvaliacao = (req, res) => {
+    const { restauranteId, clienteId, data, nota, descricao } = req.body
     let string = `INSERT INTO avaliacao VALUE('${restauranteId}','${clienteId}','${data}','${nota}', '${descricao}')`
-    con.query(string,(err, result)=>{
-        if(err == null)
+    con.query(string, (err, result) => {
+        if (err == null)
             res.status(201).end()
         else
             res.status(500).json(err).end()
+    })
+}
+
+const deletar = (req, res) => {
+    let string = `DELETE FROM restaurante WHERE id = '${req.params.id}'`
+    con.query(string, (err, result) => {
+        if (result.affectedRows > 0)
+            return res.status(204).json({ success: true, message: "Deletado com sucesso" }).end()
+        else
+            return res.status(404).json({ success: false, message: "Erro ao deletar" }).end()
     })
 }
 
@@ -70,5 +80,6 @@ module.exports = {
     listar,
     listarInfo,
     create,
-    createAvaliacao     
+    createAvaliacao,
+    deletar
 }

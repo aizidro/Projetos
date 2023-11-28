@@ -12,6 +12,7 @@
 <body>
     <div class="container">
         <h1>Restaurantes</h1>
+        <img id="create" onclick="abrirForm()" src="../../assets/create.png" alt="">
         <table>
             <thead>
                 <tr>
@@ -26,21 +27,36 @@
             <header>
                 <h2 id="x">X</h2>
             </header>
-            <div class="nameComercio">
-                <h1 id="nome"></h1>
+            <div class="listar oculto">
+                <div class="nameComercio">
+                    <h1 id="nome"></h1>
+                </div>
+                <div class="endComercio">
+                    Endereco:
+                    <p id="endereco"></p>
+                </div>
+                <div class="tellComercio">
+                    Tell:
+                    <p id="telefone"></p>
+                </div>
+                <div class="infoCategoria">
+                    Categoria:
+                    <p id="categoria"></p>
+                </div>
             </div>
-            <div class="endComercio">
-                Endereco:
-                <p id="endereco"></p>
-            </div>
-            <div class="tellComercio">
-                Tell:
-                <p id="telefone"></p>
-            </div>
-            <div class="infoCategoria">
-                Categoria:
-                <p id="categoria"></p>
-            </div>
+            <form class="form oculto">
+                <h1 id="formH1">CRIAR</h1>
+                <p>Nome:</p>
+                <input type="text" id="nomeInput">
+                <p>Categoria:</p>
+               <select id="categoria">
+                <option value="text">text</option>
+               </select>
+                <p>Telefone:</p>
+                <input type="text" id="telefone">
+                <p>Endereco:</p>
+                <input type="text" id="endereco">
+            </form>
             <div class="rodape">
             </div>
         </div>

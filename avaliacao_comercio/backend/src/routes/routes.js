@@ -9,6 +9,7 @@ router.get("/lista", restaurante.listar)
 // router.get("/listaInfo/:id", restaurante.listarInfo)
 router.post("/criar", restaurante.create)
 router.post("/criarAvaliacao", restaurante.createAvaliacao)
+router.delete("/delete/:id", restaurante.deletar)
 
 router.get('/restauranteInfo/:id', (req, res) => {
     const {id} = req.params;
@@ -26,6 +27,31 @@ router.get('/restauranteInfo/:id', (req, res) => {
            return res.status(200).json({success: true, message: result}).end()
         }
     })
+})
+
+router.post("/create", (req, res) => {
+    // informacoes do restaurante
+    const {nome, categoriaId, endereco, telefone} = req.body
+
+    let string = `
+    INSERT INTO restaurante VALUE (default, ${nome}, ${categoriaId}, ${endereco}, ${telefone})`
+
+    con.query(string, (err, result) => {
+        if(err) {
+            return res.status(400).json({success: false, message: err}).end()
+        } else {
+            return res.status(200).json({success: true, message: "Restaurante criado com sucesso",}).end()
+
+        }
+    })
+
+router.get('/listarCategoria', (req, res) => {
+    con.query("Select * from categoria", (err, result) => {
+        if(err) return res.status(400).json({success: false, err}).end()
+        else return res.status(200).json({success: true, result}).end()
+    })
+})
+    
 })
 
 module.exports = router;

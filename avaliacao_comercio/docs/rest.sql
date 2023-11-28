@@ -24,21 +24,13 @@ CREATE TABLE restaurante (
     FOREIGN KEY (categoriaId) REFERENCES categoria(id)
 );
 
-CREATE TABLE cardapio (
-    id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    restauranteId INT NOT NULL,
-    descricao VARCHAR(150) NOT NULL,
-    valor FLOAT(5,2) NOT NULL,
-    FOREIGN KEY (restauranteId) REFERENCES restaurante(id)
-);
-
 CREATE TABLE avaliacao (
     restauranteId INT NOT NULL,
     clienteId INT NOT NULL,
     data DATE NOT NULL,
     nota DECIMAL (2,1) NOT NULL,
     descricao VARCHAR(150) NOT NULL,
-    FOREIGN KEY (restauranteId) REFERENCES restaurante(id),
+    FOREIGN KEY (restauranteId) REFERENCES restaurante(id) ON DELETE CASCADE,
     FOREIGN KEY (clienteId) REFERENCES cliente(id)                                
 );
 
@@ -78,6 +70,8 @@ INSERT INTO avaliacao VALUES
 (4,4, "2023/03/20",8, "Sorverteira Incrivel"),
 (5,5, "2023/02/12",9, "Melhor Hamburguer da Região"),
 (6,6, "2023/01/08",8, "Pizza Saborosa é aqui");
+(6,5, "2023/01/08",8, "Segunda vez foi melhor");
+(4,6, "2023/01/08",8, "Oh restaurante ruim");
 
 CREATE VIEW vw_restaurante AS
 SELECT r.id AS id, r.nome AS restaurante, cat.nome AS categoria, AVG(a.nota) AS nota
@@ -86,7 +80,7 @@ INNER JOIN categoria cat ON r.categoriaId = cat.id
 LEFT JOIN avaliacao a ON r.id = a.restauranteId
 GROUP BY r.id, cat.id;
 
-CREATE VIEW vw_categoria AS
+
 SELECT r.id, r.nome, r.endereco, r.telefone, c.nome AS categoria
 FROM restaurante r
 INNER JOIN categoria c
