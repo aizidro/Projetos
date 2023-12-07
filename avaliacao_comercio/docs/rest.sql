@@ -10,28 +10,20 @@ CREATE TABLE cliente (
     senha VARCHAR(50) NOT NULL
 );
 
-CREATE TABLE categoria (
-    id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    nome VARCHAR(50) NOT NULL
-);
-
 CREATE TABLE restaurante (
     id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     nome VARCHAR(50) NOT NULL,
-    categoriaId INT NOT NULL ,
+    categoria VARCHAR(50) NOT NULL ,
     endereco VARCHAR(60) NOT NULL,
-    telefone varchar(15) NOT NULL,
-    FOREIGN KEY (categoriaId) REFERENCES categoria(id)
+    telefone varchar(15) NOT NULL
 );
 
 CREATE TABLE avaliacao (
     restauranteId INT NOT NULL,
-    clienteId INT NOT NULL,
     data DATE NOT NULL,
     nota DECIMAL (2,1) NOT NULL,
     descricao VARCHAR(150) NOT NULL,
-    FOREIGN KEY (restauranteId) REFERENCES restaurante(id) ON DELETE CASCADE,
-    FOREIGN KEY (clienteId) REFERENCES cliente(id)                                
+    FOREIGN KEY (restauranteId) REFERENCES restaurante(id) ON DELETE CASCADE                                
 );
 
 INSERT INTO cliente VALUES 
@@ -46,43 +38,27 @@ INSERT INTO cliente VALUES
 (default,"Rordolfo marquinhos", "(54) 5555-4567", "usuario9@teste.com", "senhacdef"),
 (default,"Relampago Marquinhos", "(27) 5555-8901", "usuario10@teste.com", "senhaghi");
 
-
-INSERT INTO categoria VALUES 
-(default, "doceria"),
-(default, "restaurante"),
-(default, "churrascaria"),
-(default, "soverteria"),
-(default, "hamburgueria"),
-(default, "pizzaria");
-
 INSERT INTO restaurante VALUES 
-(default, "Vinici'os Restaurant",2, "Rua Pedreira, 00", "19993897665"),
-(default, "Sodiê Doces",1, "R. Egas Bueno, 528 - Centro, Jaguariúna", "19776264678"),
-(default, "Na Lenha Steak House",3, "Av. dos Ipês, 1690 - Estância das Flores, Jaguariúna", "19223465786"),
-(default, "Oggi Sorvetes Jaguariúna",4, "R. Flor da Porcelana, 41 - Pedro Pina, Jaguariúna", "19547658765 "),
-(default, "Woody Burger",5, "R. Júlio Frank, 612 - Jardim Berlim, Jaguariúna", "19445336754"),
-(default, "Dede Pizzaria ",6, " R. Júlio Frank, 813 - Centro, Jaguariúna", "19776587689");
+(default, "Vinici'os Restaurant","Restaurante", "Rua Pedreira, 00", "19993897665"),
+(default, "Sodiê Doces","Doceria", "R. Egas Bueno, 528 - Centro, Jaguariúna", "19776264678"),
+(default, "Na Lenha Steak House","Lanchonete", "Av. dos Ipês, 1690 - Estância das Flores, Jaguariúna", "19223465786"),
+(default, "Oggi Sorvetes Jaguariúna","Sorveteria", "R. Flor da Porcelana, 41 - Pedro Pina, Jaguariúna", "19547658765 "),
+(default, "Woody Burger","Hamburgueria", "R. Júlio Frank, 612 - Jardim Berlim, Jaguariúna", "19445336754"),
+(default, "Dede Pizzaria ","Pizzaria", " R. Júlio Frank, 813 - Centro, Jaguariúna", "19776587689");
 
 INSERT INTO avaliacao VALUES
-(2, 1, "2023/04/13", 10,"Mamma mia"),
-(1,2, "2023/04/12", 8, "Otima Doceria"),
-(3,3, "2023/03/09", 9, "Otima Churrascaria"),
-(4,4, "2023/03/20",8, "Sorverteira Incrivel"),
-(5,5, "2023/02/12",9, "Melhor Hamburguer da Região"),
-(6,6, "2023/01/08",8, "Pizza Saborosa é aqui");
-(6,5, "2023/01/08",8, "Segunda vez foi melhor");
-(4,6, "2023/01/08",8, "Oh restaurante ruim");
+(2, 1, "2023/04/13", "Mamma mia"),
+(1,2, "2023/04/12", "Otima Doceria"),
+(3,3, "2023/03/09", "Otima Churrascaria"),
+(4,4, "2023/03/20", "Sorverteira Incrivel"),
+(5,5, "2023/02/12", "Melhor Hamburguer da Região"),
+(6,6, "2023/01/08", "Pizza Saborosa é aqui"),
+(2,2, "2023/01/08", "Segunda vez foi melhor"),
+(4,2, "2023/01/08", "Oh restaurante ruim");
 
 CREATE VIEW vw_restaurante AS
-SELECT r.id AS id, r.nome AS restaurante, cat.nome AS categoria, AVG(a.nota) AS nota
+SELECT r.id AS id, r.nome AS restaurante, AVG(a.nota) AS nota
 FROM restaurante r
-INNER JOIN categoria cat ON r.categoriaId = cat.id
 LEFT JOIN avaliacao a ON r.id = a.restauranteId
-GROUP BY r.id, cat.id;
+GROUP BY r.id
 
-
-SELECT r.id, r.nome, r.endereco, r.telefone, c.nome AS categoria
-FROM restaurante r
-INNER JOIN categoria c
-WHERE r.id = 3
-AND r.categoriaId = c.id;

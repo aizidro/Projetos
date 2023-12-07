@@ -1,4 +1,5 @@
 const con = require("../dao/connect")
+
 const autenticar = (req, res) => {
     const { email, senha } = req.body;
     let query = `SELECT * FROM cliente WHERE email = '${email}' AND senha = '${senha}'`;
@@ -21,7 +22,7 @@ const autenticar = (req, res) => {
 }
 
 const listar = (req, res) => {
-    let query = 'SELECT * FROM vw_restaurante'
+    let query = 'SELECT * FROM restaurante INNER JOIN avaliacao ON restaurante.id = avaliacao.restauranteId'
     con.query(query, (err, response) => {
         if (err == null) {
             res.status(200).json(response).end()
@@ -43,25 +44,41 @@ const listarInfo = (req, res) => {
     })
 }
 
+const listarRestaurantes = (req, res) => {
+    const { id } = req.params
+    let query = `SELECT * FROM restaurante`
+    con.query(query, (err, response) => {
+        if (err == null) {
+            res.status(200).json(response).end()
+        } else {
+            res.status(401).json(err).end();
+        }
+    })
+}
+
 const create = (req, res) => {
-    const { id, nome, categoriaId, endereco } = req.body
-    let string = `INSERT INTO restaurante VALUE(default,'${nome}',${categoriaId},'${endereco}')`
+    const { nome, categoria, endereco, telefone } = req.body
+    let string = `INSERT INTO restaurante VALUE(default,'${nome}','${categoria}','${endereco}', '${telefone}')`
     con.query(string, (err, result) => {
         if (err == null)
-            res.status(201).end()
+            res.status(201).json({success: true, result}).end()
         else
-            res.status(500).json(err).end()
+            {
+                console.log(err)
+                res.status(500).json(err).end()
+            }
     })
 }
 
 const createAvaliacao = (req, res) => {
-    const { restauranteId, clienteId, data, nota, descricao } = req.body
-    let string = `INSERT INTO avaliacao VALUE('${restauranteId}','${clienteId}','${data}','${nota}', '${descricao}')`
+    const { restauranteId, data, nota, descricao } = req.body
+    let string = `INSERT INTO avaliacao VALUE('${restauranteId}','${data}','${nota}', '${descricao}')`
     con.query(string, (err, result) => {
         if (err == null)
-            res.status(201).end()
+            res.status(201).json({success: true, result}).end()
         else
             res.status(500).json(err).end()
+        
     })
 }
 
@@ -81,5 +98,6 @@ module.exports = {
     listarInfo,
     create,
     createAvaliacao,
-    deletar
+    deletar,
+    listarRestaurantes
 }
