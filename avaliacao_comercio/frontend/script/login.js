@@ -24,7 +24,7 @@ function autenticar() {
     .then(resp => { return resp.json() })
     .then(info => {
         if(info.id != undefined) {
-            localStorage.setItem("corretor", JSON.stringify(info));
+            localStorage.setItem("cliente", JSON.stringify(info));
 
             window.location.href="./pages/home.html";
         }else {

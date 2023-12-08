@@ -14,6 +14,10 @@ const form = document.querySelector(".form")
 const avaliacao = document.querySelector('.formCriarAvaliacao')
 const selectRestaurantes = document.querySelector('.restaurantes');
 
+if(!localStorage.getItem('cliente')) {
+    alert("Você deve estar logado!")
+    top.location.href = "erro.html"
+}
 
 listar(tbody)
 
@@ -44,6 +48,7 @@ fechar.addEventListener("click", () => {
     lista.classList.add("oculto")
     form.classList.add("oculto")
     avaliacao.classList.add("oculto")
+    rodape.innerHTML = ''
 })
 
 function abrirForm() {
